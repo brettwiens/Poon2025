@@ -80,6 +80,7 @@ picks <- picks %>% mutate_all(~ gsub("Luca/Ryan", "LucaRyan", .))
 
 picks <- as.data.table(picks, keep.rownames = "Team")  # move rownames to a column
 # Pivot the picks table into long format
+
 long_picks <- melt(picks, id.vars = "Team", 
                 variable.name = "Round", 
                 value.name = "Value")
@@ -369,6 +370,8 @@ for (i in 1:nrow(long_picks)) {
     # sum prior column and current column, replace value in current column
     progress_data[[i]] <- progress_data[[i]] + progress_data[[i - 1]]
   }
+  
+  progress_data <- as.data.table(progress_data)
   # use ggplot to create a line chart
   long_progress <- melt(
     progress_data,

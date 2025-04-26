@@ -87,6 +87,9 @@ fluidPage(
                     ),
              column(2,h5(paste0("Data as of ", Sys.time())))
              ),
+  tabsetPanel(
+    tabPanel("Main", 
+   
 
        # column(1,''),
        column(5,
@@ -108,4 +111,19 @@ fluidPage(
                       fluidRow(selectizeInput("team", "Select a team:", choices = NULL)),
                       fluidRow(DT::dataTableOutput(outputId = 'Team_Table'))),
                column(1,'')
+    
+    ),
+    tabPanel("Progress",
+             column(2,
+                    div(
+                      style = "text-align: center;",
+                      br(),
+                      br(),
+                      img(src = 'Trophy.png', height = 500)
+                    )),
+             column(10,
+                    plotOutput("Progress_Plot", width = "100%", height = "600px"),
+    )
+  )
+)
 )

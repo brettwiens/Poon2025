@@ -5,6 +5,10 @@ library(data.table)
 library(writexl)
 library(DT)
 library(lubridate)
+library(ggplot2)
+library(ggimage)
+library(plotly)
+library(ggrepel)
 
 # Safe API call with retries
 safe_api_call <- function(url, max_retries = 5, delay = 2, timeout_sec = 15) {
@@ -106,6 +110,12 @@ for (i in 1:nrow(long_picks)) {
   # long_picks$points[i] <- player_points
   
   }
+
+  
+
+
+
+
 
   # # Get current time in MST
   # mst_time <- with_tz(Sys.time(), tzone = "America/Edmonton")
@@ -347,6 +357,44 @@ for (i in 1:nrow(long_picks)) {
  #  long_picks$`Total Goals` <- long_picks$`Yesterday Goals` + long_picks$`Goals Today`
  #  long_picks$`Total Assists` <- long_picks$`Yesterday Assists` + long_picks$`Assists Today`
  #  long_picks$`Total Points` <- long_picks$`Yesterday Points` + long_picks$`Pts Today`
+  
+  
+  #select Team and any column with Pts in the column name from long_picks
+  progress_data <- long_picks[, .SD, .SDcols = c('Team', grep('Pts', names(long_picks), value = TRUE))]
+  #Group and aggregate by Team
+  progress_data <- progress_data %>%
+    group_by(Team) %>%
+    summarise(across(everything(), sum, na.rm = TRUE))
+  for (i in 3:ncol(progress_data)) {
+    # sum prior column and current column, replace value in current column
+    progress_data[[i]] <- progress_data[[i]] + progress_data[[i - 1]]
+  }
+  # use ggplot to create a line chart
+  long_progress <- melt(
+    progress_data,
+    id.vars = "Team",          # keep Team as identifier
+    variable.name = "Date",     # name for the new 'date' column
+    value.name = "Points"       # name for the points column
+  )
+  long_progress <- as.data.table(long_progress)
+  long_progress[, Date := as.Date(gsub("Pts ", "", Date))]
+  # long_progress[, Avatar := paste0("www/", Team, ".png")]
+  
+  # long_progress$Team <- gsub("\\", "", long_progress$Team)
+  
+  end_points <- long_progress %>%
+    group_by(Team) %>%
+    filter(Date == max(Date)) %>%
+    ungroup()
+
+  
+  
+  
+  
+  
+  
+  
+  
   
   
   # print(teams_tonight)

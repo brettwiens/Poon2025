@@ -274,7 +274,9 @@ for (i in 1:nrow(long_picks)) {
   long_picks <- merge(long_picks, points_only, by = 'id', all.x = TRUE)
   long_picks$points_today <- long_picks[[ncol(long_picks) - 5]]
   
-  long_picks$player_remaining <- ifelse(long_picks$team %in% teams_in(), 1, 0)
+  teams_in <- c('MTL','WSH','FLA','TBL','STL','WPG','TOR','OTT','VGK','MIN','DAL','COL','LAK','EDM','CAR')
+  
+  long_picks$player_remaining <- ifelse(long_picks$team %in% teams_in, 1, 0)
   TeamSum <- long_picks[long_picks$player_remaining == 1, ]
   # Count the number of players remaining for each team
   TeamSum <- TeamSum %>%

@@ -66,7 +66,7 @@ function(input, output, session) {
       # Style Points column bar overlay
       formatStyle(
         'Points',
-        background = styleColorBar(range(team_points$Points, na.rm = TRUE), 'rgba(125,0,0,0.9)'),
+        background = styleColorBar(range(0:max(team_points$Points), na.rm = TRUE), 'rgba(125,0,0,0.9)'),
         backgroundSize = '100% 80%',
         backgroundRepeat = 'no-repeat',
         backgroundPosition = 'center',
@@ -84,7 +84,7 @@ function(input, output, session) {
       ) %>%
       formatStyle(
         'Remaining',
-        background = styleColorBar(range(team_points$`Remaining`, na.rm = TRUE), 'rgba(150,150,150,0.9)'),
+        background = styleColorBar(range(0:max(team_points$`Remaining`), na.rm = TRUE), 'rgba(120,120,150,0.9)'),
         backgroundSize = '100% 80%',
         backgroundRepeat = 'no-repeat',
         backgroundPosition = 'center',
@@ -93,7 +93,7 @@ function(input, output, session) {
       ) %>%
       formatStyle(
         'Playing',
-        background = styleColorBar(range(team_points$`Playing`, na.rm = TRUE), 'rgba(125,125,125,0.9)'),
+        background = styleColorBar(range(team_points$`Playing`, na.rm = TRUE), 'rgba(125,125,59,0.9)'),
         backgroundSize = '100% 80%',
         backgroundRepeat = 'no-repeat',
         backgroundPosition = 'center',

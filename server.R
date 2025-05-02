@@ -50,6 +50,8 @@ function(input, output, session) {
     datatable(
       team_points,
       escape = FALSE,
+      selection = 'single',
+      rownames = FALSE,
       options = list(
         dom = 't',
         pageLength = 11
@@ -261,7 +263,11 @@ function(input, output, session) {
         )
     )
     
-    # Refresh everything in the app every minute
-    autoInvalidate <- reactiveTimer(60 * 1000) # 1 minute
-    
+    observeEvent(input$Team_Leaderboard_rows_selected, {
+      selected_row <- input$Team_Leaderboard_rows_selected
+      if (length(selected_row)) {
+        selected_team <- team_points$Team[selected_row]
+        updateSelectizeInput(session, "team", selected = selected_team)
+      }
+    })
 }

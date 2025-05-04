@@ -13,6 +13,23 @@ library(DT)
 # Define server logic required to draw a histogram
 function(input, output, session) {
 
+  observe({
+    if (format(Sys.Date(), "%m-%d") == "05-05") {
+      showModal(modalDialog(
+        title = "🎉 Happy Birthday!",
+        tags$div(
+          style = "text-align: center;",
+          tags$img(src = "Ryan.png", height = "200px"),  # Make sure Ryan.png is in www folder
+          tags$h3("Wishing you an amazing birthday, Ryan!")
+        ),
+        easyClose = TRUE,
+        footer = modalButton("Thanks!")
+      ))
+    }
+  })
+  
+  
+  
   leaderboard_data <- team_points
   
   # output$Team_Leaderboard <- DT::renderDataTable({

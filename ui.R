@@ -75,6 +75,24 @@ fluidPage(
   .dataTables_info {
     color: white !important;
   }
+  
+  .modal-content {
+  background-color: #1e1e1e !important;
+  color: white !important;
+  border: 1px solid #444;
+}
+
+.modal-header, .modal-footer {
+  border-color: #444;
+}
+
+.modal-title {
+  color: white;
+}
+
+.btn-close {
+  filter: invert(1);
+}
       "))),
   
     # Application title

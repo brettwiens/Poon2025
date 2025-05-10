@@ -139,9 +139,11 @@ fluidPage(
                       br(),
                       img(src = 'Trophy.png', height = 500)
                     )),
-             column(10,
-                    plotOutput("Progress_Plot", width = "100%", height = "600px"),
-    )
-  )
+             column(8,
+                    plotOutput("Progress_Plot", width = "100%", height = "600px")
+                    ),
+             column(2,
+                    checkboxGroupInput(inputId = 'ProgressPicks', choices = unique(long_progress$Team), label = "Select a team:", selected = unique(long_progress$Team)))
+)
 )
 )

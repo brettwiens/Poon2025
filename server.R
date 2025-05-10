@@ -287,4 +287,70 @@ function(input, output, session) {
         updateSelectizeInput(session, "team", selected = selected_team)
       }
     })
+    
+    observeEvent(input$ProgressPicks, {
+      
+      sub_points <- end_points[end_points$Team %in% input$ProgressPicks, ]
+      
+      sub_progress <- long_progress[long_progress$Team %in% input$ProgressPicks, ]
+      
+      output$Progress_Plot <- renderPlot(
+        ggplot(sub_progress, aes(x = Date, y = Points, color = Team)) +
+          geom_line(size = 1.0, alpha = 0.9) +
+          geom_text_repel(
+            data = sub_points,
+            aes(label = paste(Team, Points, sep = " - ")),
+            vjust = -1,
+            size = 4,
+            color = "white",
+            # fontface = "normal",
+            box.padding = 0.5,
+            segment.color = "white"
+          ) +
+          geom_text(
+            data = sub_progress,
+            aes(label = Points, color = Team),
+            vjust = -1,
+            size = 3,
+            # color = "lightgray",
+            fontface = "bold"
+          ) +
+          scale_color_manual(values = c(
+            "Al" = "#FF6B6B",
+            "Brett" = "#4ECDC4",
+            "Colin" = "#FFD93D",
+            "Harvey" = "#A29BFE",
+            "Ian F" = "#E17055",
+            "Ian M" = "#00B894",
+            "Matt" = "#74B9FF",
+            "Morrie" = "#FDCB6E",
+            "Norm" = "#55EFC4",
+            "Ryan" = "#D63031",
+            "Tierney" = "#0984E3"
+          )) +
+          theme_dark(base_size = 14) +
+          labs(
+            title = "Points Progression by Team",
+            subtitle = "Up to Latest Date",
+            x = "Date",
+            y = "Points",
+            color = "Team"
+          ) +
+          theme(
+            plot.background = element_rect(fill = "#1C1C1C", color = "white", size = 1),
+            panel.background = element_rect(fill = "#1C1C1C", color = NA),
+            panel.grid.major = element_line(color = "#444444"),
+            panel.grid.minor = element_line(color = "#333333"),
+            legend.background = element_rect(fill = "#1C1C1C"),
+            legend.key = element_rect(fill = "#1C1C1C"),
+            plot.title = element_text(face = "bold", hjust = 0.5, color = "white", size = 16),
+            plot.subtitle = element_text(hjust = 0.5, color = "gray70", size = 12),
+            legend.text = element_text(color = "white"),
+            axis.text = element_text(color = "white"),
+            axis.title = element_text(color = "white"),
+            strip.background = element_rect(fill = "#1C1C1C"),
+            strip.text = element_text(color = "white")
+          )
+      )
+    })
 }

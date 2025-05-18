@@ -131,6 +131,7 @@ for (i in 1:nrow(long_picks)) {
   
   for (i in 1:length(playoff_dates)) {
     playoff_date <- playoff_dates[i]
+    print(playoff_date)
     # Construct the API URL
     url <- paste0('https://api-web.nhle.com/v1/score/', playoff_date)
     # Make the GET request

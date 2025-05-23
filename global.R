@@ -145,6 +145,10 @@ for (i in 1:nrow(long_picks)) {
     
     LiveGames <- data.table()
     
+    if (length(games) == 0){
+      next
+    } else {
+    
     for (j in 1:length(games)) {
       
       current_goals <- games[[j]]$goals
@@ -220,7 +224,7 @@ for (i in 1:nrow(long_picks)) {
       }
       }
     }
-        
+    }
         # Convert the vector to a dataframe, counting how many of each item as the second column
         date_points <- as.data.frame(table(date_points))
         date_goals <- as.data.frame(table(date_goals))

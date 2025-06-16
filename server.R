@@ -189,7 +189,7 @@ function(input, output, session) {
       updateTabsetPanel(session, "Tabs", selected = "Teams")
     })
     
-    
+    if(nrow(LiveGames) > 0){
     output$gameBoxes <- renderUI({
       tagList(
         lapply(1:nrow(LiveGames), function(i) {
@@ -220,6 +220,7 @@ function(input, output, session) {
         })
       )
     })
+    }
     
     output$Progress_Plot <- renderPlot(
       ggplot(long_progress, aes(x = Date, y = Points, color = Team)) +

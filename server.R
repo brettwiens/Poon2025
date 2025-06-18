@@ -28,7 +28,20 @@ function(input, output, session) {
     }
   })
   
-  
+  observe({
+    if (format(Sys.Date(), "%m-%d") >= "06-17") {
+      showModal(modalDialog(
+        title = "🎉 Victory!",
+        tags$div(
+          style = "text-align: center;",
+          tags$img(src = "Colin.png", height = "200px"),  # Make sure Ryan.png is in www folder
+          tags$h3("Colin Wins!!")
+        ),
+        easyClose = TRUE,
+        footer = modalButton("Congratulations!")
+      ))
+    }
+  })
   
   leaderboard_data <- team_points
   

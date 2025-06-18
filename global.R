@@ -125,7 +125,9 @@ for (i in 1:nrow(long_picks)) {
   # mst_date <- as.Date(mst_time)
 
   playoff_start <- as.Date('2025-04-19')
-  playoff_dates <- seq.Date(playoff_start, as.Date(format(Sys.time(), tz = "America/Edmonton", usetz = TRUE)), by = "day")
+  playoff_end <- as.Date('2025-06-17')
+  # playoff_dates <- seq.Date(playoff_start, as.Date(format(Sys.time(), tz = "America/Edmonton", usetz = TRUE)), by = "day")
+  playoff_dates <- seq.Date(playoff_start, playoff_end, by = "day")
 
   teams_tonight <- c()
   
